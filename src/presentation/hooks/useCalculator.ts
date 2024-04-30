@@ -24,6 +24,12 @@ export const useCalculator = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [number]);
 
+  useEffect(() => {
+    const subResult = calculateSubResult();
+    setPreviousNumber(`${subResult}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formula]);
+
   const buildNumber = (numberString: string) => {
     if (number.includes(',') && numberString === ',') {
       return;
@@ -96,6 +102,8 @@ export const useCalculator = () => {
   };
 
   const setLastNumber = () => {
+    calculateResult();
+
     if (number.endsWith(',')) {
       setPreviousNumber(number.slice(0, -1));
     } else {

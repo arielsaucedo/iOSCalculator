@@ -6,7 +6,6 @@ import {useCalculator} from '../hooks/useCalculator';
 
 export const CalculatorScreen = () => {
   const {
-    number,
     previousNumber,
     formula,
     buildNumber,
