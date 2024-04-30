@@ -8,6 +8,7 @@ export const CalculatorScreen = () => {
   const {
     number,
     previousNumber,
+    formula,
     buildNumber,
     clean,
     toogleNumberSign,
@@ -26,7 +27,7 @@ export const CalculatorScreen = () => {
           adjustsFontSizeToFit
           numberOfLines={1}
           style={globalStyles.mainResult}>
-          {number}
+          {formula}
         </Text>
         <Text
           adjustsFontSizeToFit
