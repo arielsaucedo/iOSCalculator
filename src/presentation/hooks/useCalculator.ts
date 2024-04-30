@@ -47,6 +47,7 @@ export const useCalculator = () => {
 
   const clean = () => {
     setNumber('0');
+    setPreviousNumber('0');
   };
 
   const deleteOperation = () => {
@@ -73,8 +74,6 @@ export const useCalculator = () => {
     setNumber('0');
   };
 
-  const setLastNumber = () => {};
-
   const toogleNumberSign = () => {
     if (number.includes('-')) {
       setNumber(number.replace('-', ''));
@@ -83,14 +82,71 @@ export const useCalculator = () => {
     }
   };
 
+  const setLastNumber = () => {
+    if (number.endsWith(',')) {
+      setPreviousNumber(number.slice(0, -1));
+    } else {
+      setPreviousNumber(number);
+    }
+    setNumber('0');
+  };
+
+  const divideOperation = () => {
+    setLastNumber();
+    lastOperation.current = Operator.divide;
+  };
+
+  const multiplyOperation = () => {
+    setLastNumber();
+    lastOperation.current = Operator.multiply;
+  };
+
+  const sumOperation = () => {
+    setLastNumber();
+    lastOperation.current = Operator.sum;
+  };
+
+  const substractOperation = () => {
+    setLastNumber();
+    lastOperation.current = Operator.substract;
+  };
+
+  const calculateResult = () => {
+    const num1 = Number(number);
+    const num2 = Number(previousNumber);
+
+    switch (lastOperation.current) {
+      case Operator.sum:
+        setNumber(`${num1 + num2}`);
+        break;
+      case Operator.substract:
+        setNumber(`${num2 - num1}`);
+        break;
+      case Operator.multiply:
+        setNumber(`${num1 * num2}`);
+        break;
+      case Operator.divide:
+        setNumber(`${num2 / num1}`);
+        break;
+    }
+
+    setPreviousNumber('0');
+  };
+
   return {
     //Properties
     number,
+    previousNumber,
 
     //Methods
     buildNumber,
     clean,
     deleteOperation,
     toogleNumberSign,
+    divideOperation,
+    multiplyOperation,
+    sumOperation,
+    substractOperation,
+    calculateResult,
   };
 };
